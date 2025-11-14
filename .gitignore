@@ -151,5 +151,5 @@ Desktop.ini
 node_modules/
 
 
-#Secret key
-.key
+# Secret key
+secret.key
