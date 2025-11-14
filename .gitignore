@@ -149,3 +149,7 @@ Desktop.ini
 
 # Optional: ignore node_modules if front-end is present
 node_modules/
+
+
+#Secret key
+.key
