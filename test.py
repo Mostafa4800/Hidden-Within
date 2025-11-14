@@ -1,8 +1,6 @@
 from PIL import Image
-from cryptography.fernet import Fernet
+import hashlib
 
-
-#Test
 # -----------------------------
 # Utility functions 
 # -----------------------------
@@ -17,14 +15,14 @@ def binary_to_text(binary_str):
 # Key management
 # -----------------------------
 def generate_key():
-    """Generate and save a Fernet key."""
-    key = Fernet.generate_key()
+    """Generate and save a sha256 key."""
+    key = hashlib.sha256().digest()
     with open("secret.key", "wb") as key_file:
         key_file.write(key)
     print("New encryption key generated and saved as secret.key")
 
 def load_key():
-    """Load the Fernet key."""
+    """Load the sha256 key."""
     try:
         with open("secret.key", "rb") as key_file:
             return key_file.read()
@@ -94,7 +92,7 @@ def decode_image(stego_image):
 def main():
     choice = input("1. Encode\n2. Decode\nChoose: ")
     key = load_key()
-    cipher = Fernet(key)
+    cipher = hashlib.sha256(key)
 
     if choice == '1':
         img = input("Enter image name (with extension): ")
