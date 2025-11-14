@@ -1,8 +1,10 @@
 from PIL import Image
 from cryptography.fernet import Fernet
 
+
+#Test
 # -----------------------------
-# Utility functions
+# Utility functions 
 # -----------------------------
 def text_to_binary(text):
     return ''.join(format(ord(c), '08b') for c in text)
