@@ -1,5 +1,6 @@
 from PIL import Image
 import hashlib
+import hashes
 
 # -----------------------------
 # Utility functions 
