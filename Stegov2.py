@@ -30,8 +30,6 @@ def get_image(loc):
 
 
 
-
-
 if __name__ == '__main__':
     gcd(600, 400)
     get_image("test2.png")
