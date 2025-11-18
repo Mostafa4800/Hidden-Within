@@ -11,6 +11,7 @@ def text_to_binary(text):
 def gcd(x,y):
     while y != 0:
         x, y=y, y % x
+    
     return x
 
 #get the image the user wanna use to embed data to 
@@ -96,9 +97,9 @@ def main():
             continue
 
 if __name__ == '__main__':
-    main()
+    #main()
     
-    #out = encode_image("test.jpg", "fuck you!!!")
-    #out.save("encoded.png")
-    #decoded_message = decode_image("encoded.png")
-    #print(decoded_message)
+    out = encode_image("test.jpg", "fuck you!!!")
+    out.save("encoded.png")
+    decoded_message = decode_image("encoded.png")
+    print(decoded_message)
