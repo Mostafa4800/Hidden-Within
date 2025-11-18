@@ -39,6 +39,7 @@ pip-wheel-metadata/
 # Image assets
 *.png
 *.bmp
+*.jpg
 
 # Project-specific files
 .github/instructions/snyk_rules.instructions.md
