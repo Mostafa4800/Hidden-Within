@@ -6,12 +6,6 @@ from PIL import Image
 def text_to_binary(text):
     return ''.join(format(ord(c), '08b') for c in text)
 
-#convert the embedded binary string pulled from the image to text
-
-def binary_to_text(binary_str):
-    chars = [binary_str[i:i+8] for i in range(0, len(binary_str), 8)]
-    return ''.join(chr(int(b, 2)) for b in chars)
-
 #function to find the greatest common divisor
 
 def gcd(x,y):
@@ -55,13 +49,33 @@ def encode_image(image_location, msg):
                 r, g, b = pixels[j, i]
                 r = (r & ~1) | bit
                 pixels[j, i] = (r, g, b)
-
     return img  # return the image
+
+def decode_image(image_location):
+    img, pixels, w, h = get_image(image_location)
+    binary_data = []
+    pattern = gcd(w, h) # calculate the pattern using gcd
+
+    for i in range(h): # iterate through height
+        for j in range(w): # iterate through width
+            if ((i + 1) * (j + 1)) % pattern == 0: # position matches the pattern
+                r, g, b = pixels[j, i]
+                if r == 0:
+                    
+                    if not binary_data:
+                        return ''
+                    
+                    list_of_bytes = [''.join(str(b) for b in binary_data[i:i+8]) for i in range(0, len(binary_data), 8)]
+                    return ''.join(chr(int(byte, 2)) for byte in list_of_bytes if len(byte) == 8)
+                binary_data.append(r & 1)
+
+                
+                
 
 
 
 if __name__ == '__main__':
-    out = encode_image("test.png", "Hello World")
+    out = encode_image("test.png", "fuck you!!!")
     out.save("encoded.png")
-
-    pass #main()
+    decoded_message = decode_image("encoded.png")
+    print(decoded_message)
