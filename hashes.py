@@ -1,6 +1,5 @@
 from AES_Python import AES
 import os
-import Stegov2
 
 
 aes = AES(r_mode="ECB", key=os.urandom(16))

@@ -1,4 +1,5 @@
 from PIL import Image
+from hashes import encrypt_data, decrypt_data
 
 
 def print_banner():
