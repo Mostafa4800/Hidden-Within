@@ -33,13 +33,17 @@ def load_key():
     return key, iv
 
 
-def encrypt_data(msg, key, iv):
-    load_key()
+def encrypt_data(msg):
+    key, iv = load_key()
     cipher = AES.new(key, AES.MODE_CBC, iv)
     try:
         ciphertext = cipher.encrypt(padding(msg))
         encocded_key = key.hex()
         encoded_iv = iv.hex()
+        print("Encryption successful.")
+        print("Encoded Key:", encocded_key)
+        print("Encoded IV:", encoded_iv)
+        print("Ciphertext:", ciphertext)
         return ciphertext, encocded_key, encoded_iv
     except Exception as e:
         print("Encryption error:", e)
