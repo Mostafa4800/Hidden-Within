@@ -12,13 +12,29 @@ def unpadding(msg):
     if padding_length < 1 or padding_length > 16:
         raise ValueError("Invalid padding encountered")
     return msg[:-padding_length]
+
     
+def load_key():
+    if not os.path.exists(".key"):
+        key = os.urandom(32)
+        iv = os.urandom(16)
+        with open(".key", "wb") as key_file:
+            key_file.write(key + iv)
+    elif os.path.getsize(".key") != 48:
+        key = os.urandom(32)
+        iv = os.urandom(16)
+        with open(".key", "wb") as key_file:
+            key_file.write(key + iv)
+    elif os.path.getsize(".key") == 48:
+        with open(".key", "rb") as key_file:
+            data = key_file.read()
+            key = data[:32]
+            iv = data[32:]
+    return key, iv
 
 
-
-def encrypt_data(msg):
-    key = os.urandom(32)
-    iv = os.urandom(16)
+def encrypt_data(msg, key, iv):
+    load_key()
     cipher = AES.new(key, AES.MODE_CBC, iv)
     try:
         ciphertext = cipher.encrypt(padding(msg))
@@ -30,9 +46,6 @@ def encrypt_data(msg):
         return None, None, None
             
             
-
-    
-
     
 def decrypt_data(msg):
      pass

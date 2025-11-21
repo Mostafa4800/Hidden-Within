@@ -15,6 +15,7 @@ ENV/
 Pipfile.lock
 secret.key
 .snyk
+.key
 
 # Test / coverage
 htmlcov/
