@@ -14,15 +14,25 @@ def unpadding(msg):
     return msg[:-padding_length]
     
 
-class encrypt:
 
 
-    def encrypt_data(msg):
-        pass
+def encrypt_data(msg):
+    key = os.urandom(32)
+    iv = os.urandom(16)
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    try:
+        ciphertext = cipher.encrypt(padding(msg))
+        encocded_key = key.hex()
+        encoded_iv = iv.hex()
+        return ciphertext, encocded_key, encoded_iv
+    except Exception as e:
+        print("Encryption error:", e)
+        return None, None, None
+            
+            
+
     
 
-
-class decrypt:
     
-    def decrypt_data(msg):
-        pass
+def decrypt_data(msg):
+     pass
