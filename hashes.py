@@ -2,12 +2,27 @@ from AES_Python import AES
 import os
 
 
-aes = AES(r_mode="ECB", key=os.urandom(16))
-iv = os.urandom(16)
+def padding(msg):
+    padding_length = 16 - len(msg) % 16
+    padding = ([padding_length] * padding_length)
+    return msg + padding
 
-def encrypt_data(text):
-    pass
+def unpadding(msg):
+    padding_length = msg[-1]
+    if padding_length < 1 or padding_length > 16:
+        raise ValueError("Invalid padding encountered")
+    return msg[:-padding_length]
     
 
-def decrypt_data(text):
-    pass
+class encrypt:
+
+
+    def encrypt_data(msg):
+        pass
+    
+
+
+class decrypt:
+    
+    def decrypt_data(msg):
+        pass
