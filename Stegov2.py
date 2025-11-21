@@ -1,6 +1,29 @@
 from PIL import Image
 
 
+def print_banner():
+    banner = r'''
+                                       /   \          
+                                      /     \        
+                                     /       \        
+                                    /         \         
+                                   /           \          
+                                  /             \      
++--------------------------------------------------------------------------------------+ 
+|######################################################################################|
+|######################################################################################|
+|                                                                                      |
+|          _   _ _     _     _               __        ___ _   _     _                 |
+|         | | | (_) __| | __| | ___ _ __     \ \      / (_) |_| |__ (_)_ __            |
+|         | |_| | |/ _` |/ _` |/ _ \ '_ \ ____\ \ /\ / /| | __| '_ \| | '_ \           |
+|         |  _  | | (_| | (_| |  __/ | | |_____\ V  V / | | |_| | | | | | | |          |
+|         |_| |_|_|\__,_|\__,_|\___|_| |_|      \_/\_/  |_|\__|_| |_|_|_| |_|          |
+|                                                                                      |
+|######################################################################################|
+|######################################################################################|
++--------------------------------------------------------------------------------------+'''
+    print(banner)
+
 #convert text to binary to use later for embedding in the image
 
 def text_to_binary(text):
@@ -11,8 +34,12 @@ def text_to_binary(text):
 def gcd(x,y):
     while y != 0:
         x, y=y, y % x
-    
     return x
+
+#calculate the maxium size using GCD
+#
+#
+#
 
 #get the image the user wanna use to embed data to 
 
@@ -73,6 +100,7 @@ def decode_image(image_location):
                 
                 
 def main():
+    print_banner()
     print("Steganography using GCD Pattern")
     while True:
         choice = input("Choose (e)ncode, (d)ecode or (q)uit: ").lower()
@@ -97,9 +125,9 @@ def main():
             continue
 
 if __name__ == '__main__':
-    #main()
+    main()
     
-    out = encode_image("test.jpg", "fuck you!!!")
-    out.save("encoded.png")
-    decoded_message = decode_image("encoded.png")
-    print(decoded_message)
+    #out = encode_image("test.jpg", "fuk you!!!")
+    #out.save("encoded.png")
+    #decoded_message = decode_image("encoded.png")
+    #print(decoded_message)
