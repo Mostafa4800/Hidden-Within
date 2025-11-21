@@ -1,7 +1,14 @@
-import hashlib
-from Stegov2 import text
+from AES_Python import AES
+import os
+import Stegov2
 
-def encrypt_message(message, key):
-    h = hashlib.new('sha256')
+
+aes = AES(r_mode="ECB", key=os.urandom(16))
+iv = os.urandom(16)
+
+def encrypt_data(text):
+    pass
     
-    
+
+def decrypt_data(text):
+    pass
