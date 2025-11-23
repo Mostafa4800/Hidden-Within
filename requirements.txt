@@ -4,4 +4,8 @@ matplotlib>=3.9.4
 cryptography>=46.0.3
 pycryptodome>=3.23.0
 AES_Python>=1.5.1
+<<<<<<< HEAD
 galois>=0.4.7
+=======
+galois>=0.4.7
+>>>>>>> 9037dc348fb7c7d0219cb5ca6c3959d5fe3fe305
