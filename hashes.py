@@ -1,4 +1,4 @@
-from AES_Python import AES
+from Crypto.Cipher import AES as CryptoAES
 import os
 
 def padding(msg):
@@ -33,39 +33,25 @@ def load_key():
             iv = data[32:]
     return key, iv
 
-
 def encrypt_data(msg):
-    key, iv = load_key()  # Use the stored IV from the file
+    key, iv = load_key()
     try:
         padded_msg = padding(msg)
-        encoded_key = key.hex()
-        encoded_iv = iv.hex()
-        
-        # Try passing IV as bytes instead of hex string
-        #cipher = AES(running_mode="CBC", key=key.hex(), iv=iv.hex())
-        
-        # Alternative: try without specifying IV to see if library handles it differently
-        cipher = AES(running_mode="CBC", key=key.hex())
-        # cipher.iv = iv.hex()  # Set IV separately if supported
-        
-        ciphertext = cipher.enc(data_string=padded_msg.hex())
-        
-        print("Encryption successful.")
-        print("Encoded Key:", encoded_key)
-        print("Encoded IV:", encoded_iv)
-        print("Ciphertext:", ciphertext)
-        return ciphertext, encoded_key, encoded_iv
+        cipher = CryptoAES.new(key, CryptoAES.MODE_CBC, iv)
+        ciphertext = cipher.encrypt(padded_msg).hex()
+        return ciphertext, key.hex(), iv.hex()
     except Exception as e:
         print("Encryption error:", e)
         return None, None, None
 
-def decrypt_data(ciphertext, key_hex, iv_hex):
+def decrypt_data(ciphertext_hex):
+    key, iv = load_key()
     try:
-        cipher = AES(running_mode="CBC", key=key_hex, iv=iv_hex)
-        decrypted_hex = cipher.dec(data_string=ciphertext)
-        decrypted_bytes = bytes.fromhex(decrypted_hex)
-        unpadded_msg = unpadding(decrypted_bytes)
-        return unpadded_msg.decode('utf-8')
+        ciphertext = bytes.fromhex(ciphertext_hex)
+        cipher = CryptoAES.new(key, CryptoAES.MODE_CBC, iv)
+        decrypted = cipher.decrypt(ciphertext)
+        print("Decrypted (raw):", decrypted)
+        return unpadding(decrypted).decode("utf-8")
     except Exception as e:
         print("Decryption error:", e)
         return None
