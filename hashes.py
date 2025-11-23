@@ -1,11 +1,12 @@
 from AES_Python import AES
 import os
 
-
 def padding(msg):
+    if isinstance(msg, str):
+        msg = msg.encode('utf-8')
     padding_length = 16 - len(msg) % 16
-    padding = ([padding_length] * padding_length)
-    return msg + padding
+    padding_bytes = bytes([padding_length] * padding_length)
+    return msg + padding_bytes
 
 def unpadding(msg):
     padding_length = msg[-1]
@@ -34,22 +35,37 @@ def load_key():
 
 
 def encrypt_data(msg):
-    key, iv = load_key()
-    cipher = AES.new(key, AES.MODE_CBC, iv)
+    key, iv = load_key()  # Use the stored IV from the file
     try:
-        ciphertext = cipher.encrypt(padding(msg))
-        encocded_key = key.hex()
+        padded_msg = padding(msg)
+        encoded_key = key.hex()
         encoded_iv = iv.hex()
+        
+        # Try passing IV as bytes instead of hex string
+        #cipher = AES(running_mode="CBC", key=key.hex(), iv=iv.hex())
+        
+        # Alternative: try without specifying IV to see if library handles it differently
+        cipher = AES(running_mode="CBC", key=key.hex())
+        # cipher.iv = iv.hex()  # Set IV separately if supported
+        
+        ciphertext = cipher.enc(data_string=padded_msg.hex())
+        
         print("Encryption successful.")
-        print("Encoded Key:", encocded_key)
+        print("Encoded Key:", encoded_key)
         print("Encoded IV:", encoded_iv)
         print("Ciphertext:", ciphertext)
-        return ciphertext, encocded_key, encoded_iv
+        return ciphertext, encoded_key, encoded_iv
     except Exception as e:
         print("Encryption error:", e)
         return None, None, None
-            
-            
-    
-def decrypt_data(msg):
-     pass
+
+def decrypt_data(ciphertext, key_hex, iv_hex):
+    try:
+        cipher = AES(running_mode="CBC", key=key_hex, iv=iv_hex)
+        decrypted_hex = cipher.dec(data_string=ciphertext)
+        decrypted_bytes = bytes.fromhex(decrypted_hex)
+        unpadded_msg = unpadding(decrypted_bytes)
+        return unpadded_msg.decode('utf-8')
+    except Exception as e:
+        print("Decryption error:", e)
+        return None
