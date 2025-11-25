@@ -118,7 +118,8 @@ def main():
         elif choice == 'd':
             image_location = input("Enter image file path: ")
             hidden_msg = decode_image(image_location)
-            print("Hidden message:", hidden_msg)
+            decrypted_msg = decrypt_data(hidden_msg)
+            print("Hidden message:", decrypted_msg)
             continue
         elif choice == 'q':
             print("Quitting the program.")
