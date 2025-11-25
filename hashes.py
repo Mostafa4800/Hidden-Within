@@ -39,7 +39,7 @@ def encrypt_data(msg):
         padded_msg = padding(msg)
         cipher = CryptoAES.new(key, CryptoAES.MODE_CBC, iv)
         ciphertext = cipher.encrypt(padded_msg).hex()
-        return ciphertext, key.hex(), iv.hex()
+        return ciphertext
     except Exception as e:
         print("Encryption error:", e)
         return None, None, None

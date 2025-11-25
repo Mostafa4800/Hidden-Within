@@ -27,8 +27,10 @@ def print_banner():
 
 #convert text to binary to use later for embedding in the image
 
-def text_to_binary(text):
-    return ''.join(format(ord(c), '08b') for c in text)
+def text_to_binary(msg):
+    cyphertext_hex = encrypt_data(msg)
+    cyphertext = bytes.fromhex(cyphertext_hex)
+    return ''.join(format(byte,'08b') for byte in cyphertext)
 
 #function to find the greatest common divisor
 
