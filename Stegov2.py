@@ -3,6 +3,9 @@ from hashes import encrypt_data, decrypt_data
 
 
 def print_banner():
+    """ 
+    Most important part. Everyone knows that a great program has great art
+    """
     banner = r'''
                                        /   \          
                                       /     \        
@@ -25,34 +28,47 @@ def print_banner():
 +--------------------------------------------------------------------------------------+'''
     print(banner)
 
-#convert text to binary to use later for embedding in the image
+#convert encoded text to binary to use later for embedding in the image
 
 def text_to_binary(msg):
-    cyphertext_hex = encrypt_data(msg)
-    cyphertext = bytes.fromhex(cyphertext_hex)
-    return ''.join(format(byte,'08b') for byte in cyphertext)
+    """ 
+    This is where the clear text message gets encrypted to AES and then converted
+    to bytes then then gets formatted to 8-bit bytes.
+    """
+    #Calls the encrypt fuction
+    ciphertext_hex = encrypt_data(msg)
+    #Converts the Ciphertext from hexadecimal to bytes
+    ciphertext = bytes.fromhex(ciphertext_hex)
+    #Converts the bytes to 8-bit bytes
+    return ''.join(format(byte,'08b') for byte in ciphertext)
 
-#function to find the greatest common divisor
+#Function to find the greatest common divisor
 
 def gcd(x,y):
+    """ 
+    This is where we use Euclid’s algorithm to find the greatest common divisor (GCD)
+    of two integers. This means the largest number that divides both integers without leaving a
+    remainder.
+    """
     while y != 0:
         x, y=y, y % x
     return x
 
-#calculate the maxium size using GCD
-#
-#
-#
-
 #get the image the user wanna use to embed data to 
 
 def get_image(location):
+    """ 
+    This function finds the image location, loading the pixels of the image, and its hight and width.
+    """
     img = Image.open(location).convert("RGB")
     pixels = img.load()
     w, h = img.size
     return img, pixels, w, h
 
 def encode_image(image_location, msg):
+    """ 
+    Here we imbed the encypted 8-bit binary text into the image by 
+    """
     binary = text_to_binary(msg)   # conveert message to binary
     bit_index = 0 # index to keep track
 
