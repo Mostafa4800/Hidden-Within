@@ -1,4 +1,5 @@
 from Stegov2 import encode_image, decode_image
+from crypto_utils import decrypt_data
 
 def print_banner():
     """ 
