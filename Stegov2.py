@@ -24,7 +24,7 @@ def gcd(x,y):
     remainder.
     """
     while y != 0:
-        x, y=y, y % x
+        x, y = y, x % y
     return x
 
 #get the image the user wanna use to embed data to 
