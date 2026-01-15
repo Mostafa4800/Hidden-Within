@@ -90,5 +90,15 @@ def decode_image(image_location):
                     return cipher_bytes.hex()
                 binary_data.append(r & 1)
 
-                
-                
+
+
+
+
+#list_of_bytes = [''.join
+#(str(b) 
+# for b in binary_data[i:i+8]) 
+# for i in range(0, len(binary_data), 8)]
+
+#cipher_bytes = bytes(int(byte, 2) 
+# for byte in list_of_bytes 
+# if len(byte) == 8)
