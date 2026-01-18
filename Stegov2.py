@@ -68,6 +68,7 @@ def encode_image(image_location, msg):
                 # modify LSB so the color red
                 r, g, b = pixels[j, i]
                 r = (r & ~1) | bit
+                print(f"Embedding bit {bit} at pixel ({j}, {i})")
                 pixels[j, i] = (r, g, b)
     return img  # return the image
 

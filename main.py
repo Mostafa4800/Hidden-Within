@@ -1,3 +1,4 @@
+import os
 from Stegov2 import encode_image, decode_image
 from crypto_utils import decrypt_data
 
@@ -34,15 +35,15 @@ def main():
     while True:
         choice = input("Choose (e)ncode, (d)ecode or (q)uit: ").lower()
         if choice == 'e':
-            image_location = input("Enter image file path: ")
+            image_location = os.path.expanduser(input("Enter image file path: "))
             msg = input("Enter message to hide: ")
             encoded_img = encode_image(image_location, msg)
-            output_path = input("Enter output image file path: ")
+            output_path = os.path.expanduser(input("Enter output image file path: "))
             encoded_img.save(output_path)
             print(f"Message encoded and saved to {output_path}")
             continue
         elif choice == 'd':
-            image_location = input("Enter image file path: ")
+            image_location = os.path.expanduser(input("Enter stego image file path: "))
             hidden_msg = decode_image(image_location)
             decrypted_msg = decrypt_data(hidden_msg)
             print("Hidden message:", decrypted_msg)
